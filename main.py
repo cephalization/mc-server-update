@@ -1,6 +1,7 @@
 import json
 import requests
 import argparse
+from pathlib import Path
 
 MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
 
@@ -20,12 +21,23 @@ parser.add_argument(
     default=False,
 )
 parser.add_argument(
+    "-n", "--name", help="filename of the jar file", default="server.jar"
+)
+parser.add_argument(
+    "-d",
+    "--destination",
+    help="destination path to save the server.jar",
+    type=str,
+    default="./",
+)
+parser.add_argument(
     "version",
     help="desired version number, latest if not provided",
     type=str,
     default="latest",
     nargs="?",
 )
+
 args = parser.parse_args()
 
 target = "snapshot" if args.snapshot else "release"
@@ -61,9 +73,14 @@ print(f"Downloading server.jar for {version}...")
 file_data = requests.get(download_url)
 
 # Replace the user's server.jar
-print("Replacing ./server.jar")
+destination = Path(args.destination).resolve()
+path = Path.joinpath(destination, args.name)
+print(f"Replacing {path}")
 
-with open("server.jar", "wb") as file_object:
-    file_object.write(file_data.content)
+try:
+    with open(path, "wb") as file_object:
+        file_object.write(file_data.content)
+except Exception:
+    print(f"Could not open file {path}")
 
 print("Done!")
