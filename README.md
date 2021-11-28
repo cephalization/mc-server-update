@@ -2,6 +2,11 @@
 
 Downloads minecraft server releases
 
+## Requirements
+
+- Python ^3.7
+- [Python Poetry](https://python-poetry.org/docs/#installation)
+
 ## Example Usage
 
 ### Help
