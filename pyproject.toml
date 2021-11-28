@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "mc-server-update"
+version = "0.1.0"
+description = ""
+authors = ["Anthony Powell <anthonypowell@hey.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.26.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.11b1"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
